@@ -66,6 +66,9 @@ public class Player : MonoBehaviour
 
     public void SUBMIT_TEXT()
     {
+        //if the user submits input before text type, interuppt
+        FindAnyObjectByType<UITextTypeWriter>().story = "";
+
         //handing commands
         if (submittedText == "hlp")
         {
