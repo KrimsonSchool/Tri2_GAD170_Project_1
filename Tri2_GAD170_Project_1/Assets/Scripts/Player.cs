@@ -71,9 +71,14 @@ public class Player : MonoBehaviour
         {
             set(2);
         }
-        if(submittedText == "lst")
+        else if(submittedText == "lst")
         {
             set(3);
+        }
+        else if(submittedText == "cls")
+        {
+            TEXT.text = "";
+            set(1);
         }
         else
         {

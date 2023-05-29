@@ -533,7 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TEXT: '
 
-    Hello %, enter the command hlp to list all commands:
+    Hello %, enter hlp to list all commands:
 
 '
 --- !u!1 &449131426
@@ -1606,5 +1606,8 @@ MonoBehaviour:
 
     lst - list all programs
     and folders
+
+
+    cls - clear console
 
 '
