@@ -8,7 +8,7 @@ public class UITextTypeWriter: MonoBehaviour
 {
 
     TMPro.TextMeshProUGUI txt;
-    string story;
+    public string story;
 
     void Awake()
     {
@@ -17,7 +17,6 @@ public class UITextTypeWriter: MonoBehaviour
         txt.text = "";
 
         // TODO: add optional delay when to start
-        StartCoroutine("PlayText");
     }
 
     IEnumerator PlayText()

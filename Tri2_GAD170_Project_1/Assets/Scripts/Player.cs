@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Player Stats")]
+    public string username;
     public int hp;
     public int attack;
     public int level;
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     public TMPro.TMP_InputField player_Input;
     public TMPro.TextMeshProUGUI TEXT;
     string submittedText;
+
+    public Text_Manager Text_Manager;
 
 
     // Start is called before the first frame update
@@ -39,17 +42,48 @@ public class Player : MonoBehaviour
         }
 
         //handing player submitting text
-        if (Input.GetKeyDown(KeyCode.Return) && player_Input.text != null)
+        if (Input.GetKeyDown(KeyCode.Return) && player_Input.text!= " ")
         {
-            TEXT.text += "\n" + player_Input.text;
+            TEXT.text += "\n" + player_Input.text + "\n";
             submittedText = player_Input.text;
-            player_Input.text = null;
+            player_Input.text = " ";
+
+
+            if (Text_Manager.id != 0)
+            {
+                SUBMIT_TEXT();
+            }
+            else
+            {
+                username = submittedText;
+
+                Text_Manager.id += 1;
+                Text_Manager.SetText();
+            }
         }
 
+    }
+
+    public void SUBMIT_TEXT()
+    {
         //handing commands
-        if (submittedText == "help")
+        if (submittedText == "hlp")
         {
-
+            set(2);
         }
+        if(submittedText == "lst")
+        {
+            set(3);
+        }
+        else
+        {
+            set(4);
+        }
+    }
+
+    public void set(int id)
+    {
+        Text_Manager.id = id;
+        Text_Manager.SetText();
     }
 }
