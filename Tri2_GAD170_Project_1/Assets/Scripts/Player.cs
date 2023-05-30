@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -83,8 +84,16 @@ public class Player : MonoBehaviour
             TEXT.text = "";
             set(1);
         }
-        else
+        else if(submittedText == "qfg")
         {
+            SceneManager.LoadScene("QFG");
+        }
+        else if (submittedText == "bgc")
+        {
+            set(4);
+        }
+        else
+                {
             set(4);
         }
     }
