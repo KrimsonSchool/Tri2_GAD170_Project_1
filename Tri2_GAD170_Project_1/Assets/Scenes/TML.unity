@@ -813,8 +813,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 16.623016}
-  m_SizeDelta: {x: 1469, y: 698.75}
+  m_AnchoredPosition: {x: 0, y: 31.688}
+  m_SizeDelta: {x: 1920, y: 1016.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1300383026
 MonoBehaviour:
@@ -937,7 +937,7 @@ GameObject:
   - component: {fileID: 1623083886}
   - component: {fileID: 1623083885}
   m_Layer: 0
-  m_Name: Player
+  m_Name: User
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -956,11 +956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: 
-  hp: 0
-  attack: 0
-  level: 0
-  xp: 0
-  xpMax: 0
   player_Input: {fileID: 1983112173}
   TEXT: {fileID: 1300383027}
   Text_Manager: {fileID: 1935974909}
@@ -1239,7 +1234,7 @@ MonoBehaviour:
   - {fileID: 2031876508}
   - {fileID: 186865465}
   - {fileID: 900124855}
-  Player: {fileID: 1623083885}
+  User: {fileID: 1623083885}
   id: 0
 --- !u!4 &1935974910
 Transform:
@@ -1299,8 +1294,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -349.37698}
-  m_SizeDelta: {x: 1469, y: 33.246}
+  m_AnchoredPosition: {x: 0, y: -508.3107}
+  m_SizeDelta: {x: 1920, y: 63.3846}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983112173
 MonoBehaviour:

@@ -6,7 +6,7 @@ public class Text_Manager : MonoBehaviour
 {
     public UITextTypeWriter uttw;
     public RESPONSE_TEXT[] RESPONSE_TEXT;
-    public Player Player;
+    public User User;
     public int id;
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,9 @@ public class Text_Manager : MonoBehaviour
     }
     public void SetText()
     {
-        if (Player.username != null)
+        if (User.username != null)
         {
-            RESPONSE_TEXT[id].TEXT = RESPONSE_TEXT[id].TEXT.Replace("%", Player.username);
+            RESPONSE_TEXT[id].TEXT = RESPONSE_TEXT[id].TEXT.Replace("%", User.username);
         }
         uttw.story = RESPONSE_TEXT[id].TEXT;
         uttw.StartCoroutine("PlayText");
