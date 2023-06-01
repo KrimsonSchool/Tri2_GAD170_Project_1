@@ -12,9 +12,16 @@ public class Player : MonoBehaviour
     public float xp;
     public float xpMax;
 
+    [Header("Text Stuff")]
+    public TMPro.TMP_InputField player_Input;
+    public TMPro.TextMeshProUGUI TEXT;
+    [HideInInspector] public string submittedText;
+    public UITextTypeWriter typer;
+
+    public GameManager GameManager;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,5 +37,22 @@ public class Player : MonoBehaviour
             //level has 1 added to it
             level += 1;
         }
+
+        //handing player submitting text
+        if (Input.GetKeyDown(KeyCode.Return) && player_Input.text != " ")
+        {
+            TEXT.text += "\n" + player_Input.text + "\n";
+            submittedText = player_Input.text;
+            player_Input.text = " ";
+
+            SUBMIT_TEXT();
+        }
     }
+
+    public void SUBMIT_TEXT()
+    {
+        //if the user submits input before text type, interuppt
+        typer.story = "";
+    }
+
 }
