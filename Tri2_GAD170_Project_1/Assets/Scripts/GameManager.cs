@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int stage;
 
     public Dialogue[] dialogue;
+    public Location[] location;
 
-    string inp;
+    [HideInInspector] public string inp;
+
+    [HideInInspector]public int cond;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,56 +26,64 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inp = Player.submittedText;
 
-        //handing commands
-        if (Player.submittedText == "hlp")
+        if(cond == 0)
         {
-            uttw.story = "\n>ATK - Attack {target} \n>INV - Open inventory\n>";
-            SetText();
-        }
-        else
-        {
-            //welcome screen
-            if (dialogue[id].stage == 0)
+            //handing commands
+            if (inp == "hlp")
             {
-                if(inp == "str")
-                {
-                    id = 1; 
-                    SetText();
-                    clear();
-                }
-                if(inp == "qut")
-                {
-                    SceneManager.LoadScene(0);
-                }
+                uttw.story = "\n>ATK - Attack {target} \n>INV - Open inventory\n>GO - go to {target} location";
+                SetText();
             }
-            //will you help
-            if (dialogue[id].stage == 1)
+            else if (inp == "go")
             {
-                if (inp == "yes" || inp == "y")
-                {
-                    id = 2;
-                    SetText();
-                }
-                if(inp == "no" || inp == "n")
-                {
-                    id = 3;
-                    SetText();
-                }
+                uttw.story = "\nWhere would you like to go?";
+                cond = 1;
+                SetText();
             }
-            //will you help please ( if you said no to the above plead for help )
-            if (dialogue[id].stage == 2)
+            else
             {
-                if (inp == "yes" || inp == "y")
+                //welcome screen
+                if (dialogue[id].stage == 0)
                 {
-                    id = 2;
-                    SetText();
+                    if (inp == "str")
+                    {
+                        id = 1;
+                        SetText();
+                        clear();
+                    }
+                    if (inp == "qut")
+                    {
+                        SceneManager.LoadScene(0);
+                    }
                 }
-                if (inp == "no" || inp == "n")
+                //will you help
+                if (dialogue[id].stage == 1)
                 {
-                    id = 4;
-                    SetText();
+                    if (inp == "yes" || inp == "y")
+                    {
+                        id = 2;
+                        SetText();
+                    }
+                    if (inp == "no" || inp == "n")
+                    {
+                        id = 3;
+                        SetText();
+                    }
+                }
+                //will you help please ( if you said no to the above plead for help )
+                if (dialogue[id].stage == 2)
+                {
+                    if (inp == "yes" || inp == "y")
+                    {
+                        id = 2;
+                        SetText();
+                    }
+                    if (inp == "no" || inp == "n")
+                    {
+                        id = 4;
+                        SetText();
+                    }
                 }
             }
         }
@@ -81,12 +92,29 @@ public class GameManager : MonoBehaviour
     {
         uttw.story = "";
         uttw.story = dialogue[id].text;
-        Player.submittedText = "";
         uttw.StartCoroutine("PlayText");
     }
 
     public void clear()
     {
         text.text = "";
+    }
+
+    public void CheckLoc()
+    {
+        for (int i = 0; i < location.Length; i++)
+        {
+            if (location[i].lName == inp && !location[i].locked)
+            {
+                uttw.story = location[i].descText;
+
+                if (stage == location[i].qStage)
+                {
+                    id = location[i].id;
+                    SetText();
+                }
+                return;
+            }
+        }
     }
 }

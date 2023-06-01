@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
         {
             TEXT.text += "\n" + player_Input.text + "\n";
             submittedText = player_Input.text;
+            GameManager.inp = submittedText;
             player_Input.text = " ";
 
             SUBMIT_TEXT();
@@ -51,8 +52,15 @@ public class Player : MonoBehaviour
 
     public void SUBMIT_TEXT()
     {
+        print(GameManager.inp);
         //if the user submits input before text type, interuppt
         typer.story = "";
+
+        if(GameManager.cond == 1)
+        {
+            GameManager.CheckLoc();
+            GameManager.cond -= 1;
+        }
     }
 
 }
