@@ -58,7 +58,15 @@ public class GameManager : MonoBehaviour
                 string itemsa="";
                 for (int i = 0; i < player.items.Length; i++)
                 {
-                    itemsa += "\n>"+player.items[i].name;
+                    if (player.items[i].equipped)
+                    {
+                        itemsa += "\n>(E)" + player.items[i].name;
+                    }
+                    else
+                    {
+                        itemsa += "\n>" + player.items[i].name;
+                    }
+                    
                 }
                 clear("INVENTORY:\n");
                 DirSet(itemsa);
@@ -122,6 +130,7 @@ public class GameManager : MonoBehaviour
         else if(cond == 2)
         {
             CheckItem();
+            cond = 0;
         }
     }
     public void SetText()
@@ -144,6 +153,7 @@ public class GameManager : MonoBehaviour
     //check the entered location name against the array of location names
     public void CheckLoc()
     {
+        bool noset = true;
         for (int i = 0; i < location.Length; i++)
         {
             if (location[i].lName == inp && !location[i].locked)
@@ -155,21 +165,27 @@ public class GameManager : MonoBehaviour
                     stage = location[i].qStage;
                     clear("\n");
                     DirSet(location[i].descText + "\n\n" + dialogue[id].text);
+                    noset = false;
+                    
                 }
                 else
                 {
                     DirSet(location[i].descText);
+                    noset = false;
+                    
                 }
             }
-            else
-            {
-                DirSet("\nError, Unknown location selected!");
-            }
+        }
+
+        if (noset)
+        {
+            DirSet("\nError, Unknown location selected!");
         }
     }
 
     public void CheckItem()
     {
+        bool noset=true;
         print("EQP: "+player.equippedItems[0]);
         for (int i = 0; i < player.items.Length; i++)
         {
@@ -190,16 +206,22 @@ public class GameManager : MonoBehaviour
 
                 player.equippedItems[lowestEmpty] = player.items[i];
                 player.items[i].equipped = true;
-
+                DirSet("You equip " + player.items[i].name);
+                noset = false;
+                
             }
             else if(player.items[i].name == inp && player.items[i].equipped)
             {
                 DirSet(player.items[i].name + " is already equipped!");
+                noset = false;
+                
             }
-            else
-            {
-                DirSet("No item with name " + inp + " found, use [INV] to check the items in your inventory.");
-            }
+            
+        }
+
+        if (noset)
+        {
+            DirSet("No item with name " + inp + " found, use [INV] to check the items in your inventory.");
         }
     }
 }
