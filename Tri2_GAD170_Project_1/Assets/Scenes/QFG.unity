@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 382774220}
   uttw: {fileID: 382774219}
-  Player: {fileID: 468784968}
+  player: {fileID: 468784968}
   id: 0
   stage: 0
   dialogue:
@@ -539,8 +539,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281794304
+  m_fontColor: {r: 0, g: 1, b: 0.21316147, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -635,7 +635,10 @@ Transform:
   m_LocalPosition: {x: 810.50934, y: 367.49445, z: 2.0190601}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1553096649}
+  - {fileID: 1231814181}
+  - {fileID: 1966849869}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -655,7 +658,16 @@ MonoBehaviour:
   attack: 0
   level: 0
   xp: 0
-  xpMax: 0
+  xpMax: 25
+  items:
+  - {fileID: 1553096650}
+  - {fileID: 1231814182}
+  equippedItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   player_Input: {fileID: 333016833}
   TEXT: {fileID: 382774220}
   submittedText: 
@@ -1057,6 +1069,94 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1231814180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231814181}
+  - component: {fileID: 1231814182}
+  m_Layer: 0
+  m_Name: itemb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1231814181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231814180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468784967}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1231814182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231814180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d479c45493d5364ea61cd8cceda29f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1553096648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553096649}
+  - component: {fileID: 1553096650}
+  m_Layer: 0
+  m_Name: itema
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1553096649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553096648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468784967}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553096650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553096648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d479c45493d5364ea61cd8cceda29f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1619475786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1377,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815905179}
   m_CullTransparentMesh: 1
+--- !u!1 &1966849868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966849869}
+  - component: {fileID: 1966849870}
+  m_Layer: 0
+  m_Name: empty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1966849869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966849868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468784967}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1966849870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966849868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d479c45493d5364ea61cd8cceda29f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &489819784148037174 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6883877643378626178, guid: aa816f58679057a4aad163064e29132d, type: 3}
@@ -1510,10 +1654,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6559853701963438225, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
-      propertyPath: qStage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6559853701963438225, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
       propertyPath: descText
       value: The centre of a small quiet village. Small stalls line the streets juxtaposed
         with small wooden houses.
@@ -1535,6 +1675,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1679334750}
     m_Modifications:
+    - target: {fileID: 1383916944109621558, guid: a4ec16c4515916d4c9d30d5d39ccae3f, type: 3}
+      propertyPath: text
+      value: "You enter the village and a smiling blacksmith swiftly grabs a set
+        of armour off his workbench as soon as he sees you aproach. \n\nWhen you've
+        reach the blacksmith a small crowd of villages have surrounded you, excited
+        to see their saviour. The smithe hands you the armour set and smiles.\n\nUse
+        the [INV] command to open your inventory then use the [EQP] command to equip
+        the armour.\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 7016882636317328917, guid: a4ec16c4515916d4c9d30d5d39ccae3f, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1639,6 +1788,27 @@ PrefabInstance:
     - target: {fileID: 3500380082826752173, guid: 8880ef6236b58404bbbd10222064fcaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602963941968416554, guid: 8880ef6236b58404bbbd10222064fcaf, type: 3}
+      propertyPath: text
+      value: ' Welcome adventurer to the lands of Alekethee,
+
+
+        I am the grande
+        wizard Balethmoth and i am terribly excited to greet you!
+
+
+        These
+        once great lands have been under the immovable hand of the evil warlok Lithterott
+        for eons! You adventurer, must save these lands from his evil grasp and return
+        the lands to their former peaceful glory!
+
+
+        Will you assist us in
+        this task oh great adventurer?
+
+
+        [YES] [Y] [NO] [N]'
       objectReference: {fileID: 0}
     - target: {fileID: 6779268616645833631, guid: 8880ef6236b58404bbbd10222064fcaf, type: 3}
       propertyPath: m_Name

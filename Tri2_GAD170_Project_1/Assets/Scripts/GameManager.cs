@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI text;
     public UITextTypeWriter uttw;
-    public Player Player;
+    public Player player;
     public int id;
     [HideInInspector] public int stage;
 
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
             //handing commands
             if (inp == "hlp")
             {
-                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest");
+                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest\nEQP - Equip {Target} item");
             }
             else if (inp == "go")
             {
@@ -50,6 +52,21 @@ public class GameManager : MonoBehaviour
             {
                 clear("");
                 SetText();
+            }
+            else if(inp == "inv")
+            {
+                string itemsa="";
+                for (int i = 0; i < player.items.Length; i++)
+                {
+                    itemsa += "\n>"+player.items[i].name;
+                }
+                clear("INVENTORY:\n");
+                DirSet(itemsa);
+            }
+            else if(inp == "eqp")
+            {
+                DirSet("\nWhat item would you like to equip?\n");
+                cond = 2;
             }
             else
             {
@@ -97,10 +114,14 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else
+        else if(cond == 1)
         {
             CheckLoc();
-            cond -= 1;
+            cond = 0;
+        }
+        else if(cond == 2)
+        {
+            CheckItem();
         }
     }
     public void SetText()
@@ -120,6 +141,7 @@ public class GameManager : MonoBehaviour
         text.text = i;
     }
 
+    //check the entered location name against the array of location names
     public void CheckLoc()
     {
         for (int i = 0; i < location.Length; i++)
@@ -142,6 +164,41 @@ public class GameManager : MonoBehaviour
             else
             {
                 DirSet("\nError, Unknown location selected!");
+            }
+        }
+    }
+
+    public void CheckItem()
+    {
+        print("EQP: "+player.equippedItems[0]);
+        for (int i = 0; i < player.items.Length; i++)
+        {
+            if (player.items[i].name == inp && !player.items[i].equipped)
+            {
+                int lowestEmpty=999;
+
+                for (int j = 0; j < player.equippedItems.Length; j++)
+                {
+                    if (player.equippedItems[j] == null)
+                    {
+                        if (j < lowestEmpty)
+                        {
+                            lowestEmpty = j;
+                        }
+                    }
+                }
+
+                player.equippedItems[lowestEmpty] = player.items[i];
+                player.items[i].equipped = true;
+
+            }
+            else if(player.items[i].name == inp && player.items[i].equipped)
+            {
+                DirSet(player.items[i].name + " is already equipped!");
+            }
+            else
+            {
+                DirSet("No item with name " + inp + " found, use [INV] to check the items in your inventory.");
             }
         }
     }

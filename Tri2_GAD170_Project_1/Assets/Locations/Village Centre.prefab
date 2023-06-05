@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lName: village centre
   locked: 0
-  descText: A small, quiet village.
+  descText: The centre of a small quiet village. Small stalls line the streets juxtaposed
+    with small wooden houses.
   qStage: 5
-  id: 5
+  id: 2

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public int level;
     public float xp;
     public float xpMax;
+    public Item[] items;
+    public Item[] equippedItems;
 
     [Header("Text Stuff")]
     public TMPro.TMP_InputField player_Input;
