@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     [Header("Player Stats")]
     public int hp;
+    public int hpBase;
     public int attack;
+    public int attackBase;
     public int level;
     public float xp;
     public float xpMax;
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
 
             SUBMIT_TEXT();
         }
+
+        CalcStats();
     }
 
     public void SUBMIT_TEXT()
@@ -60,4 +64,17 @@ public class Player : MonoBehaviour
         GameManager.CheckCommands();
     }
 
+    public void CalcStats()
+    {
+        attack = attackBase;
+        hp = hpBase;
+        for (int i = 0; i < equippedItems.Length; i++)
+        {
+            if (equippedItems[i] != null)
+            {
+                attack += equippedItems[i].atk;
+                hp += equippedItems[i].def;
+            }
+        }
+    }
 }

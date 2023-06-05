@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public string inp;
 
     [HideInInspector]public int cond;
+
+    public Item[] itemsToGive;
+
+    Location currentLocation;
+
+    int turn;
+    float turnTimer;
+    bool combat;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +37,44 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (id == 5)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                player.items[i] = itemsToGive[i];
+            }
+        }
+
+        if (combat)
+        {
+            if (turn >= 1)
+            {
+                turnTimer += Time.deltaTime;
+            }
+
+            if (turnTimer >= 1 && turn >= 1)
+            {
+                string atk = "";
+                for (int i = 0; i < currentLocation.enemy.Length; i++)
+                {
+                    if(currentLocation.enemy[i] != null)
+                    {
+                        if (turn == currentLocation.enemy[i].spd)
+                        {
+                            player.hpBase -= currentLocation.enemy[i].attk;
+                            atk += "\nyou take " + currentLocation.enemy[i].attk + " damage from " + currentLocation.enemy[i].name;
+
+                            turn -= 1;
+                        }
+                    }
+                    
+                }
+                DirSet(atk);
+
+                turnTimer = 0;
+            }
+            
+        }
     }
     public void CheckCommands()
     {
@@ -39,42 +85,50 @@ public class GameManager : MonoBehaviour
             {
                 DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest\nEQP - Equip {Target} item");
             }
-            else if (inp == "go")
+            else if (inp == "go" && !combat)
             {
                 DirSet("\nWhere would you like to go?\n");
                 cond = 1;
             }
-            else if(inp == "cls")
+            else if (inp == "cls")
             {
                 clear("use the [hlp] command to list all commands\n");
             }
-            else if(inp == "res")
+            else if (inp == "res" && !combat)
             {
                 clear("");
                 SetText();
             }
-            else if(inp == "inv")
+            else if (inp == "inv")
             {
-                string itemsa="";
+                string itemsa = "";
                 for (int i = 0; i < player.items.Length; i++)
                 {
-                    if (player.items[i].equipped)
+                    if (player.items[i] != null)
                     {
-                        itemsa += "\n>(E)" + player.items[i].name;
+                        if (player.items[i].equipped)
+                        {
+                            itemsa += "\n>(E)" + player.items[i].name;
+                        }
+                        else
+                        {
+                            itemsa += "\n>" + player.items[i].name;
+                        }
                     }
-                    else
-                    {
-                        itemsa += "\n>" + player.items[i].name;
-                    }
-                    
+
                 }
                 clear("INVENTORY:\n");
                 DirSet(itemsa);
             }
-            else if(inp == "eqp")
+            else if (inp == "eqp")
             {
                 DirSet("\nWhat item would you like to equip?\n");
                 cond = 2;
+            }
+            else if (inp == "atk" && combat && turn >= 0)
+            {
+                DirSet("\nWho would you like to attack?\n");
+                cond = 3;
             }
             else
             {
@@ -132,6 +186,11 @@ public class GameManager : MonoBehaviour
             CheckItem();
             cond = 0;
         }
+        else if(cond == 3)
+        {
+            AttackProcess();
+            cond = 0;
+        }
     }
     public void SetText()
     {
@@ -156,9 +215,9 @@ public class GameManager : MonoBehaviour
         bool noset = true;
         for (int i = 0; i < location.Length; i++)
         {
-            if (location[i].lName == inp && !location[i].locked)
+            if (location[i].lName == inp && !location[i].locked && !combat)
             {
-
+                currentLocation = location[i];
                 if (location[i].id == id)
                 {
                     id = location[i].qStage;
@@ -166,13 +225,51 @@ public class GameManager : MonoBehaviour
                     clear("\n");
                     DirSet(location[i].descText + "\n\n" + dialogue[id].text);
                     noset = false;
-                    
                 }
                 else
                 {
-                    DirSet(location[i].descText);
                     noset = false;
-                    
+
+                    if (location[i].childLocs)
+                    {
+                        string locs = "";
+                        if (location[i].enemies)
+                        {
+                            string enm = "";
+                            for (int k = 0; k < location[i].enemy.Length; k++)
+                            {
+                                if (location[i].enemy[k] != null)
+                                {
+                                    enm += "\nAn enemy " + location[i].enemy[k].name + " appeared!";
+                                }
+                            }
+                            foreach (Location l in location[i].GetComponentsInChildren<Location>())
+                            {
+                                locs += "\n>" + l.name;
+                            }
+                            DirSet(location[i].descText + "\n\nFollowing Locations: " + locs + "\n\nEnemies: " + enm);
+                            combat = true;
+                        }
+                        else
+                        {
+                            foreach (Location l in location[i].GetComponentsInChildren<Location>())
+                            {
+                                locs += "\n>" + l.name;
+                            }
+                            DirSet(location[i].descText + "\n\nFollowing Locations: " + locs);
+                        }
+                    }
+                    else
+                    {
+                        DirSet(location[i].descText);
+                    }
+                }
+
+                
+
+                if (location[i].enemies)
+                {
+
                 }
             }
         }
@@ -222,6 +319,32 @@ public class GameManager : MonoBehaviour
         if (noset)
         {
             DirSet("No item with name " + inp + " found, use [INV] to check the items in your inventory.");
+        }
+    }
+    public void AttackProcess()
+    {
+        for (int i = 0; i < currentLocation.enemy.Length; i++)
+        {
+            if (currentLocation.enemy[i] != null)
+            {
+                if (currentLocation.enemy[i].name == inp)
+                {
+                    currentLocation.enemy[i].hp -= player.attack;
+                    DirSet("You hit the " + currentLocation.enemy[i].name + " for " + player.attack);
+
+                    if (currentLocation.enemy[i].hp <= 0)
+                    {
+                        currentLocation.enemy[i] = null;
+                    }
+                    turn += 1;
+                    turnTimer = 0;
+                }
+                else
+                {
+                    DirSet("No enemy with that name");
+                }
+            }
+            
         }
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7611190595637990382
+--- !u!1 &4831360803788842457
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7016882636317328917}
-  - component: {fileID: 1383916944109621558}
+  - component: {fileID: 5340649059603764267}
+  - component: {fileID: 2620851393523966608}
   m_Layer: 0
-  m_Name: Village collect gear
+  m_Name: leave village
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7016882636317328917
+--- !u!4 &5340649059603764267
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7611190595637990382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 4831360803788842457}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32,22 +32,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1383916944109621558
+--- !u!114 &2620851393523966608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7611190595637990382}
+  m_GameObject: {fileID: 4831360803788842457}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddfb1ef9801cfd94a9ef4de9bd8c4e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: "You enter the village and a smiling blacksmith swiftly grabs a set of armour
-    off his workbench as soon as he sees you aproach. \n\nWhen you've reach the blacksmith
-    a small crowd of villages have surrounded you, excited to see their saviour.
-    The smithe hands you the armour set and smiles.\n\nUse the [INV] command to open
-    your inventory then use the [EQP] command to equip the armour.\n\nOnce you have
-    equipped your gear, use the [GO] command to goto village gate.\n"
-  stage: 3
+  text: 'The wizard leads you to the gate at the edge of the village followed by
+    a now large crowd of villagers, he turns to you as you reach the gate.
+
+
+    You
+    must go north of here, nearby there is a dugeon called Abgul where the key to
+    enter the warloks domain lies. You must clear that dungeon and collect the key,
+    use it to enter the warloks domain and defeat him!
+
+
+    Goodbye adventurer.'
+  stage: 6

@@ -12,4 +12,9 @@ public class Location : MonoBehaviour
 
     public int qStage;
     public int id;
+
+    public bool enemies;
+    public Enemy[] enemy;
+
+    public bool childLocs;
 }

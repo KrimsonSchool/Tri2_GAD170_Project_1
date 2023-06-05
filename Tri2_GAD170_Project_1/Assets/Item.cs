@@ -5,4 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public bool equipped;
+
+    public int atk;
+    public int def;
 }
