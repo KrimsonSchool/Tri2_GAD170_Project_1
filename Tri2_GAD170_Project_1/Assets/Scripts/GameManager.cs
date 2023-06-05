@@ -35,12 +35,21 @@ public class GameManager : MonoBehaviour
             //handing commands
             if (inp == "hlp")
             {
-                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location");
+                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest");
             }
             else if (inp == "go")
             {
                 DirSet("\nWhere would you like to go?\n");
                 cond = 1;
+            }
+            else if(inp == "cls")
+            {
+                clear("use the [hlp] command to list all commands\n");
+            }
+            else if(inp == "res")
+            {
+                clear("");
+                SetText();
             }
             else
             {
@@ -51,7 +60,7 @@ public class GameManager : MonoBehaviour
                     {
                         id = 1;
                         SetText();
-                        clear();
+                        clear("");
                     }
                     if (inp == "qut")
                     {
@@ -106,9 +115,9 @@ public class GameManager : MonoBehaviour
         uttw.StartCoroutine("PlayText");
     }
 
-    public void clear()
+    public void clear(string i)
     {
-        text.text = "";
+        text.text = i;
     }
 
     public void CheckLoc()
@@ -117,15 +126,22 @@ public class GameManager : MonoBehaviour
         {
             if (location[i].lName == inp && !location[i].locked)
             {
-                uttw.story = location[i].descText;
-                SetText();
 
-                if (stage == location[i].qStage)
+                if (location[i].id == id)
                 {
-                    id = location[i].id;
-                    SetText();
+                    id = location[i].qStage;
+                    stage = location[i].qStage;
+                    clear("\n");
+                    DirSet(location[i].descText + "\n\n" + dialogue[id].text);
                 }
-                return;
+                else
+                {
+                    DirSet(location[i].descText);
+                }
+            }
+            else
+            {
+                DirSet("\nError, Unknown location selected!");
             }
         }
     }

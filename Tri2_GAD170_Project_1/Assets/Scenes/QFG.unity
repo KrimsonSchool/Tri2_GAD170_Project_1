@@ -1505,6 +1505,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6559853701963438225, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
+      propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6559853701963438225, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
+      propertyPath: qStage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6559853701963438225, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
+      propertyPath: descText
+      value: The centre of a small quiet village. Small stalls line the streets juxtaposed
+        with small wooden houses.
+      objectReference: {fileID: 0}
     - target: {fileID: 8028723762213072608, guid: fedc3f435d15ace4fbc6cf539d756aa8, type: 3}
       propertyPath: m_Name
       value: Village Centre

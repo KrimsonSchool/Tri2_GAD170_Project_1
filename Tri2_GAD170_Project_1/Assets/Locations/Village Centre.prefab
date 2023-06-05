@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lName: village centre
   locked: 0
-  descText: 
-  qStage: 1
+  descText: A small, quiet village.
+  qStage: 5
   id: 5
