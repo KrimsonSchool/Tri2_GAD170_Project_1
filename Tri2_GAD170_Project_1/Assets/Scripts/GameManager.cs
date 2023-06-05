@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
             else if (inp == "go")
             {
                 DirSet("\nWhere would you like to go?\n");
+                cond = 1;
             }
             else
             {
@@ -87,6 +88,11 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            CheckLoc();
+            cond -= 1;
+        }
     }
     public void SetText()
     {
@@ -112,6 +118,7 @@ public class GameManager : MonoBehaviour
             if (location[i].lName == inp && !location[i].locked)
             {
                 uttw.story = location[i].descText;
+                SetText();
 
                 if (stage == location[i].qStage)
                 {
