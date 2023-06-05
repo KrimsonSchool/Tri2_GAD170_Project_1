@@ -2210,6 +2210,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4960360581381234003, guid: 6f54502110f97ec4391378068e21509c, type: 3}
+      propertyPath: hp
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960360581381234003, guid: 6f54502110f97ec4391378068e21509c, type: 3}
       propertyPath: spd
       value: 2
       objectReference: {fileID: 0}

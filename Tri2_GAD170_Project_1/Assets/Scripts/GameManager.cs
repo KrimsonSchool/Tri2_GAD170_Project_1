@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     int turn;
     float turnTimer;
     bool combat;
+
+    int killed;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (combat && killed == currentLocation.enemy.Length)
+        {
+            combat = false;
+            DirSet("You've cleared the area!");
+            killed = 0;
+            currentLocation.enemies = false;
+        }
         if (combat)
         {
             if (turn >= 1)
@@ -73,6 +82,7 @@ public class GameManager : MonoBehaviour
 
                 turnTimer = 0;
             }
+
             
         }
     }
@@ -334,7 +344,10 @@ public class GameManager : MonoBehaviour
 
                     if (currentLocation.enemy[i].hp <= 0)
                     {
+                        DirSet("You killed " + currentLocation.enemy[i]);
+                        Destroy(currentLocation.enemy[i]);
                         currentLocation.enemy[i] = null;
+                        killed += 1;
                     }
                     turn += 1;
                     turnTimer = 0;

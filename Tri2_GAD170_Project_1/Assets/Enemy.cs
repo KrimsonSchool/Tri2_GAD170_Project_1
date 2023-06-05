@@ -10,9 +10,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (hp <= 0)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }
