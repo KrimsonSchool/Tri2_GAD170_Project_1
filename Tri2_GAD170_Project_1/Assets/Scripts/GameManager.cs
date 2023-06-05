@@ -26,20 +26,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(cond == 0)
+        
+    }
+    public void CheckCommands()
+    {
+        if (cond == 0)
         {
             //handing commands
             if (inp == "hlp")
             {
-                uttw.story = "\n>ATK - Attack {target} \n>INV - Open inventory\n>GO - go to {target} location";
-                SetText();
+                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location");
             }
             else if (inp == "go")
             {
-                uttw.story = "\nWhere would you like to go?";
-                cond = 1;
-                SetText();
+                DirSet("\nWhere would you like to go?\n");
             }
             else
             {
@@ -90,8 +90,13 @@ public class GameManager : MonoBehaviour
     }
     public void SetText()
     {
-        uttw.story = "";
         uttw.story = dialogue[id].text;
+        uttw.StartCoroutine("PlayText");
+    }
+
+    public void DirSet(string txt)
+    {
+        uttw.story = txt;
         uttw.StartCoroutine("PlayText");
     }
 

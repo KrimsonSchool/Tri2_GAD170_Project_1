@@ -234,6 +234,8 @@ MonoBehaviour:
   - {fileID: 2210650708262188458}
   location:
   - {fileID: 76939687}
+  inp: 
+  cond: 0
 --- !u!4 &227659923
 Transform:
   m_ObjectHideFlags: 0
