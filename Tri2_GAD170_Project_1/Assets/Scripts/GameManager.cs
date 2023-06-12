@@ -48,14 +48,6 @@ public class GameManager : MonoBehaviour
                 player.items[i] = itemsToGive[i];
             }
         }
-
-        if (combat && killed == currentLocation.enemy.Length)
-        {
-            combat = false;
-            DirSet("You've cleared the area!"); //bug here!!!
-            killed = 0;
-            currentLocation.enemies = false;
-        }
         if (combat)
         {
             if (turn >= 1)
@@ -337,26 +329,53 @@ public class GameManager : MonoBehaviour
             DirSet("No item with name " + inp + " found, use [INV] to check the items in your inventory.");
         }
     }
+
+    //processing player attack command
     public void AttackProcess()
     {
         int enmyCheck = 0;
+
+        //for every enemy in the current area
         for (int i = 0; i < currentLocation.enemy.Length; i++)
         {
+            //if there is an enemy in selected slot
             if (currentLocation.enemy[i] != null)
             {
+                //and if the player input name matches the selected enemies name then
                 if (currentLocation.enemy[i].name == inp)
                 {
+                    //set that enemy as the enemy thats being currently attacked
                     currentEnemy = currentLocation.enemy[i];
 
+                    //the enemy takes damage accoring to the players attack
                     currentEnemy.hp -= player.attack;
 
+                    //if the enemies health is 0 then
                     if (currentEnemy.hp <= 0)
                     {
-                        DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp.");
-                        player.xp += currentEnemy.xpReward;
-                        Destroy(currentEnemy);
-                        currentLocation.enemy[i] = null;
+                        //the amount of enemies killed is +1
                         killed += 1;
+                        
+                        //if the player has killed the amount of enemies in the area then
+                        if (killed == currentLocation.enemy.Length)
+                        {
+                            DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp. \n\n You've cleared the area!");
+                            player.xp += currentEnemy.xpReward;
+                            Destroy(currentEnemy);
+                            currentLocation.enemy[i] = null;
+
+                            combat = false;
+                            killed = 0;
+                            currentLocation.enemies = false;
+                        }
+                        //if not then
+                        else
+                        {
+                            DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp.");
+                            player.xp += currentEnemy.xpReward;
+                            Destroy(currentEnemy);
+                            currentLocation.enemy[i] = null;
+                        }
                     }
                     else
                     {
