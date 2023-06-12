@@ -399,6 +399,9 @@ MonoBehaviour:
   - {fileID: 76939687}
   - {fileID: 6559853701981028912}
   - {fileID: 5888238889677143778}
+  - {fileID: 557362868}
+  - {fileID: 548293368}
+  - {fileID: 571500589}
   inp: 
   cond: 0
   itemsToGive:
@@ -678,6 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   story: 
+  buffer: 
 --- !u!114 &382774220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,9 +1113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lName: abgul right
   locked: 0
-  descText: The stoney entrance to abgul
+  descText: A dead end!
   qStage: 0
-  id: 0
+  id: 7
   enemies: 1
   enemy:
   - {fileID: 39499629}
@@ -1169,12 +1173,12 @@ MonoBehaviour:
   locked: 0
   descText: The stoney entrance to abgul
   qStage: 0
-  id: 0
+  id: 7
   enemies: 1
   enemy:
   - {fileID: 495074969}
   - {fileID: 1338813830}
-  childLocs: 0
+  childLocs: 1
 --- !u!1 &571500587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,9 +1226,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lName: abgul forward
   locked: 0
-  descText: The stoney entrance to abgul
+  descText: Further into the dark cave, its clear work is being done to mine for
+    something...
   qStage: 0
-  id: 0
+  id: 7
   enemies: 1
   enemy:
   - {fileID: 140173474}

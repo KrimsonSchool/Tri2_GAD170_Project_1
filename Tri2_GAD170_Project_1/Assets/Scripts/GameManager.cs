@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
     int killed;
 
     Enemy currentEnemy;
+
+    //ONLY EVER USE += WITH BACK BUFFER!!!!!!!!!!!!!!!!!!!!!
+    string backBuffer;
+    //ONLY EVER USE += WITH BACK BUFFER!!!!!!!!!!!!!!!!!!!!!
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +84,17 @@ public class GameManager : MonoBehaviour
 
             
         }
+
+
+
+
+        //ONLY EVER USE += WITH BACK BUFFER!!!!!!!!!!!!!!!!!!!!!
+        if(uttw.buffer == "" && backBuffer!="")
+        {
+            uttw.buffer = backBuffer;
+            backBuffer = "";
+        }
+        //ONLY EVER USE += WITH BACK BUFFER!!!!!!!!!!!!!!!!!!!!!
     }
     public void CheckCommands()
     {
@@ -87,7 +103,7 @@ public class GameManager : MonoBehaviour
             //handing commands
             if (inp == "hlp")
             {
-                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest\nEQP - Equip {Target} item");
+                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest\nEQP - Equip {Target} item\nLOC - prints current location\nPLR - print player stats");
             }
             else if (inp == "go" && !combat)
             {
@@ -133,6 +149,15 @@ public class GameManager : MonoBehaviour
             {
                 DirSet("\nWho would you like to attack?\n");
                 cond = 3;
+            }
+            else if(inp == "loc")
+            {
+                clear("");
+                PrntLoc();
+            }
+            else if(inp == "plr")
+            {
+                DirSet("\nCURRENT STATS:\n\n" + "Level: " + player.level + "\n" + player.xp + "/" + player.xpMax + " Xp\nAttack: " + player.attack + "\nHealth: " + player.hp);
             }
             else
             {
@@ -208,13 +233,34 @@ public class GameManager : MonoBehaviour
 
     public void DirSet(string txt)
     {
-        uttw.story = txt;
-        uttw.StartCoroutine("PlayText");
+        if (uttw.story == "")
+        {
+            uttw.story = txt;
+            uttw.StartCoroutine("PlayText");
+        }
+        else
+        {
+            backBuffer += "\n\n"+txt;
+        }
+    }
+
+    public void BuffSet(string txt)
+    {
+        if(uttw.buffer == "")
+        {
+            uttw.buffer = txt;
+        }
+        else
+        {
+            //BuffSet(txt);
+            backBuffer += "\n\n"+txt;
+            //print("Buffer's full");
+        }
     }
 
     public void clear(string i)
     {
-        text.text = i;
+        text.text = ""+i;
     }
 
     //check the entered location name against the array of location names
@@ -237,40 +283,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     noset = false;
-
-                    if (location[i].childLocs)
-                    {
-                        string locs = "";
-                        if (location[i].enemies)
-                        {
-                            string enm = "";
-                            for (int k = 0; k < location[i].enemy.Length; k++)
-                            {
-                                if (location[i].enemy[k] != null)
-                                {
-                                    enm += "\nAn enemy " + location[i].enemy[k].name + " appeared!";
-                                }
-                            }
-                            foreach (Location l in location[i].GetComponentsInChildren<Location>())
-                            {
-                                locs += "\n>" + l.name;
-                            }
-                            DirSet(location[i].descText + "\n\nFollowing Locations: " + locs + "\n\nEnemies: " + enm);
-                            combat = true;
-                        }
-                        else
-                        {
-                            foreach (Location l in location[i].GetComponentsInChildren<Location>())
-                            {
-                                locs += "\n>" + l.name;
-                            }
-                            DirSet(location[i].descText + "\n\nFollowing Locations: " + locs);
-                        }
-                    }
-                    else
-                    {
-                        DirSet(location[i].descText);
-                    }
+                    PrntLoc();
                 }
 
                 
@@ -367,6 +380,9 @@ public class GameManager : MonoBehaviour
                             combat = false;
                             killed = 0;
                             currentLocation.enemies = false;
+
+                            clear("");
+                            PrntLoc();
                         }
                         //if not then
                         else
@@ -375,6 +391,9 @@ public class GameManager : MonoBehaviour
                             player.xp += currentEnemy.xpReward;
                             Destroy(currentEnemy);
                             currentLocation.enemy[i] = null;
+
+                            clear("");
+                            PrntLoc();
                         }
                     }
                     else
@@ -395,6 +414,59 @@ public class GameManager : MonoBehaviour
         if(enmyCheck==currentLocation.enemy.Length)
         {
             DirSet("No enemy with that name");
+        }
+    }
+
+    void PrntLoc()
+    {
+        if (currentLocation.childLocs)
+        {
+            string locs = "";
+            if (currentLocation.enemies)
+            {
+                string enm = "";
+                for (int k = 0; k < currentLocation.enemy.Length; k++)
+                {
+                    if (currentLocation.enemy[k] != null)
+                    {
+                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared!";
+                    }
+                }
+                foreach (Location l in currentLocation.GetComponentsInChildren<Location>())
+                {
+                    locs += "\n>" + l.name;
+                }
+                DirSet("\n\n" + currentLocation.descText + "\n\nFollowing Locations: " + locs + "\n\nEnemies: " + enm);
+                combat = true;
+            }
+            else
+            {
+                foreach (Location l in currentLocation.GetComponentsInChildren<Location>())
+                {
+                    locs += "\n>" + l.name;
+                }
+                DirSet("\n\n" + currentLocation.descText + "\n\nFollowing Locations: " + locs);
+            }
+        }
+        else
+        {
+            if (currentLocation.enemies)
+            {
+                string enm = "";
+                for (int k = 0; k < currentLocation.enemy.Length; k++)
+                {
+                    if (currentLocation.enemy[k] != null)
+                    {
+                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared!";
+                    }
+                }
+                DirSet("\n\n" + currentLocation.descText + "\n\nEnemies: " + enm);
+                combat = true;
+            }
+            else
+            {
+                DirSet("\n\n" + currentLocation.descText);
+            }
         }
     }
 }
