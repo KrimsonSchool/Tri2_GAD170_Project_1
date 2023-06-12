@@ -389,53 +389,76 @@ public class GameManager : MonoBehaviour
                         //if the player has killed the amount of enemies in the area then
                         if (killed == currentLocation.enemy.Length)
                         {
+                            //display that you killed the enemy
                             DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp. \n\n You've cleared the area!");
+                            //add xp to player
                             player.xp += currentEnemy.xpReward;
+                            //destroy the enemy object
                             Destroy(currentEnemy);
+                            //set the enemy slot to null
                             currentLocation.enemy[i] = null;
 
+                            //set so that the player is out of combat
                             combat = false;
                             killed = 0;
                             currentLocation.enemies = false;
 
+                            //reset the player hp
                             player.hp = player.hpBase;
 
+                            //clear the screen
                             clear("");
+                            //show the location text
                             PrntLoc();
                         }
                         //if not then
                         else
                         {
+                            //display that the player hit an enemy
                             DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp.");
+                            //add xp to player
                             player.xp += currentEnemy.xpReward;
+                            //destroy the enemy object
                             Destroy(currentEnemy);
+                            //set the enemy slot to null
                             currentLocation.enemy[i] = null;
 
+                            //clear the screen
                             clear("");
+                            //show the location text
                             PrntLoc();
                         }
                     }
+                    //if not then
                     else
                     {
+                        //display that the player hit the enemy
                         DirSet("You hit the " + currentEnemy.name + " for " + player.attack);
                     }
+
+                    //increase the turn counter
                     turn += 1;
                     turnTimer = 0;
                 }
+                //if not then
                 else
                 {
+                    //increase the amount of checked enemies
                     enmyCheck++;
                 }
             }
             
         }
 
+        //if the amount of checked enemies is equal to the amount of enemies then
         if(enmyCheck==currentLocation.enemy.Length)
         {
+            //display that there is no enemy with the input name
             DirSet("No enemy with that name");
         }
     }
 
+    //a fucntion to print the location text
     void PrntLoc()
     {
         if (currentLocation.childLocs)

@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
             SUBMIT_TEXT();
         }
 
+        if(hp<= 0)
+        {
+            GameManager.Quit();
+        }
+
         CalcStats();
     }
 
