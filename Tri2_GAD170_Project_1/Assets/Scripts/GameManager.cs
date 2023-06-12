@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uttw.story = "";
+        uttw.buffer = "";
         SetText();
     }
 
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
             //handing commands
             if (inp == "hlp")
             {
-                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\nRES - resume the main quest\nEQP - Equip {Target} item\nLOC - prints current location\nPLR - print player stats");
+                DirSet("\n>ATK - Attack {target}\n>INV - Open inventory\n>GO - go to {target} location\n>CLS - clear the console\n>RES - resume the main quest\n>EQP - Equip {Target} item\n>LOC - prints current location\n>PLR - print player stats");
             }
             else if (inp == "go" && !combat)
             {
@@ -227,8 +229,15 @@ public class GameManager : MonoBehaviour
     }
     public void SetText()
     {
-        uttw.story = dialogue[id].text;
-        uttw.StartCoroutine("PlayText");
+        if(uttw.story == "")
+        {
+            uttw.story = dialogue[id].text;
+            uttw.StartCoroutine("PlayText");
+        }
+        else
+        {
+            BuffSet(dialogue[id].text);
+        }
     }
 
     public void DirSet(string txt)
@@ -240,7 +249,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            backBuffer += "\n\n"+txt;
+            BuffSet("\n\n"+txt);
         }
     }
 
@@ -478,5 +487,11 @@ public class GameManager : MonoBehaviour
                 DirSet("\n\n" + currentLocation.descText);
             }
         }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+        Time.timeScale = 0;
     }
 }

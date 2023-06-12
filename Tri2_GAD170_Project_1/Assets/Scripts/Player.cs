@@ -76,5 +76,8 @@ public class Player : MonoBehaviour
                 hp += equippedItems[i].def;
             }
         }
+
+        hp *= Mathf.RoundToInt(level *1.25f);
+        attack *= Mathf.RoundToInt(level *1.25f);
     }
 }
