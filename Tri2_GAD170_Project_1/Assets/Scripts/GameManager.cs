@@ -493,5 +493,6 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
         Time.timeScale = 0;
+        clear("");
     }
 }
