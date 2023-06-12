@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     bool combat;
 
     int killed;
+
+    Enemy currentEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -157,7 +159,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 //will you help
-                if (dialogue[id].stage == 1)
+                else if (dialogue[id].stage == 1)
                 {
                     if (inp == "yes" || inp == "y")
                     {
@@ -171,7 +173,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 //will you help please ( if you said no to the above plead for help )
-                if (dialogue[id].stage == 2)
+                else if (dialogue[id].stage == 2)
                 {
                     if (inp == "yes" || inp == "y")
                     {
@@ -183,6 +185,10 @@ public class GameManager : MonoBehaviour
                         id = 4;
                         SetText();
                     }
+                }
+                else
+                {
+                    DirSet("Error, command not found, use the [HLP] command to check all commands");
                 }
             }
         }
@@ -333,31 +339,43 @@ public class GameManager : MonoBehaviour
     }
     public void AttackProcess()
     {
+        int enmyCheck = 0;
         for (int i = 0; i < currentLocation.enemy.Length; i++)
         {
             if (currentLocation.enemy[i] != null)
             {
                 if (currentLocation.enemy[i].name == inp)
                 {
-                    currentLocation.enemy[i].hp -= player.attack;
-                    DirSet("You hit the " + currentLocation.enemy[i].name + " for " + player.attack);
+                    currentEnemy = currentLocation.enemy[i];
 
-                    if (currentLocation.enemy[i].hp <= 0)
+                    currentEnemy.hp -= player.attack;
+
+                    if (currentEnemy.hp <= 0)
                     {
-                        DirSet("You killed " + currentLocation.enemy[i]);
-                        Destroy(currentLocation.enemy[i]);
+                        DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp.");
+                        player.xp += currentEnemy.xpReward;
+                        Destroy(currentEnemy);
                         currentLocation.enemy[i] = null;
                         killed += 1;
+                    }
+                    else
+                    {
+                        DirSet("You hit the " + currentEnemy.name + " for " + player.attack);
                     }
                     turn += 1;
                     turnTimer = 0;
                 }
                 else
                 {
-                    DirSet("No enemy with that name");
+                    enmyCheck++;
                 }
             }
             
+        }
+
+        if(enmyCheck==currentLocation.enemy.Length)
+        {
+            DirSet("No enemy with that name");
         }
     }
 }

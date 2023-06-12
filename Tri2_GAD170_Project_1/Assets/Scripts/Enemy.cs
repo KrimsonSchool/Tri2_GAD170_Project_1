@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int attk;
     public float spd;
+    public int xpReward;
 
     private void Update()
     {

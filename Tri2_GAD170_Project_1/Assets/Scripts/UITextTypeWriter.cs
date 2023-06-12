@@ -26,6 +26,7 @@ public class UITextTypeWriter: MonoBehaviour
             txt.text += c;
             yield return new WaitForSeconds(0.01f);
         }
+        story = null;
     }
 
 }
