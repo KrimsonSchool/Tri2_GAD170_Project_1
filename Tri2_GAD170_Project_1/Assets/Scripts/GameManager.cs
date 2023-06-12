@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (combat && killed == currentLocation.enemy.Length)
         {
             combat = false;
-            DirSet("You've cleared the area!");
+            DirSet("You've cleared the area!"); //bug here!!!
             killed = 0;
             currentLocation.enemies = false;
         }
