@@ -17,4 +17,5 @@ public class Location : MonoBehaviour
     public Enemy[] enemy;
 
     public bool childLocs;
+    public bool idMe;
 }

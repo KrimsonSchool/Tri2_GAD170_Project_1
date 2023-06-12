@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
     public void SUBMIT_TEXT()
     {
-        print(GameManager.inp);
+        //print(GameManager.inp);
         //if the user submits input before text type, interuppt
         typer.story = "";
         GameManager.CheckCommands();

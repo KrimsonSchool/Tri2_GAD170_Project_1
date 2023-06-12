@@ -272,13 +272,21 @@ public class GameManager : MonoBehaviour
             if (location[i].lName == inp && !location[i].locked && !combat)
             {
                 currentLocation = location[i];
-                if (location[i].id == id)
+                if (currentLocation.idMe)
                 {
-                    id = location[i].qStage;
-                    stage = location[i].qStage;
-                    clear("\n");
-                    DirSet(location[i].descText + "\n\n" + dialogue[id].text);
-                    noset = false;
+                    if (location[i].id == id)
+                    {
+                        id = location[i].qStage;
+                        stage = location[i].qStage;
+                        clear("\n");
+                        DirSet(location[i].descText + "\n\n" + dialogue[id].text);
+                        noset = false;
+                    }
+                    else
+                    {
+                        noset = false;
+                        PrntLoc();
+                    }
                 }
                 else
                 {
@@ -380,6 +388,8 @@ public class GameManager : MonoBehaviour
                             combat = false;
                             killed = 0;
                             currentLocation.enemies = false;
+
+                            player.hp = player.hpBase;
 
                             clear("");
                             PrntLoc();
