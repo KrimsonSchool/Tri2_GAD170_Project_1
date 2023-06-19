@@ -379,6 +379,7 @@ public class GameManager : MonoBehaviour
 
                     //the enemy takes damage accoring to the players attack
                     currentEnemy.hp -= player.attack;
+                    print("dealt" + player.attack + " damage!");
 
                     //if the enemies health is 0 then
                     if (currentEnemy.hp <= 0)
@@ -393,6 +394,7 @@ public class GameManager : MonoBehaviour
                             DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp. \n\n You've cleared the area!");
                             //add xp to player
                             player.xp += currentEnemy.xpReward;
+                            print("You gained xp!");
                             //destroy the enemy object
                             Destroy(currentEnemy);
                             //set the enemy slot to null
@@ -418,6 +420,7 @@ public class GameManager : MonoBehaviour
                             DirSet("You hit " + currentEnemy + ", killing them and are rewarded with " + currentEnemy.xpReward + "xp.");
                             //add xp to player
                             player.xp += currentEnemy.xpReward;
+                            print("You gained xp!");
                             //destroy the enemy object
                             Destroy(currentEnemy);
                             //set the enemy slot to null
@@ -471,7 +474,8 @@ public class GameManager : MonoBehaviour
                 {
                     if (currentLocation.enemy[k] != null)
                     {
-                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared!";
+                        print("enemy appeared!");
+                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared! They have " + currentLocation.enemy[k].hp+"Hp.";
                     }
                 }
                 foreach (Location l in currentLocation.GetComponentsInChildren<Location>())
@@ -499,7 +503,8 @@ public class GameManager : MonoBehaviour
                 {
                     if (currentLocation.enemy[k] != null)
                     {
-                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared!";
+                        print("enemy appeared!");
+                        enm += "\nAn enemy " + currentLocation.enemy[k].name + " appeared! They have " + currentLocation.enemy[k].hp+"Hp.";
                     }
                 }
                 DirSet("\n\n" + currentLocation.descText + "\n\nEnemies: " + enm);
@@ -517,5 +522,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
         Time.timeScale = 0;
         clear("");
+        print("you died!");
     }
 }

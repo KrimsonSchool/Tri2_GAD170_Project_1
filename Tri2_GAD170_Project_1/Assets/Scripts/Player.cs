@@ -23,9 +23,13 @@ public class Player : MonoBehaviour
     public UITextTypeWriter typer;
 
     public GameManager GameManager;
+
+    public GameObject levelUpButton;
+    public GameObject win;
     void Start()
     {
-
+        attack = attackBase;
+        hp = hpBase;
     }
 
     // Update is called once per frame
@@ -34,12 +38,7 @@ public class Player : MonoBehaviour
         //handing xp, when xp is above or at max xp:
         if (xp >= xpMax)
         {
-            //xp is minused by xp max
-            xp -= xpMax;
-            //xp max is set to 125% of value
-            xpMax *= 1.25f;
-            //level has 1 added to it
-            level += 1;
+            levelUpButton.SetActive(true);
         }
 
         //handing player submitting text
@@ -58,7 +57,14 @@ public class Player : MonoBehaviour
             GameManager.Quit();
         }
 
-        CalcStats();
+
+        //if the players level is 5 or greater then
+        if (level >= 5)
+        {
+            //they win!!!
+            win.SetActive(true);
+            print("You Win!!!");
+        }
     }
 
     public void SUBMIT_TEXT()
@@ -71,18 +77,35 @@ public class Player : MonoBehaviour
 
     public void CalcStats()
     {
+        //for (int i = 0; i < equippedItems.Length; i++)
+        //{
+        //   if (equippedItems[i] != null)
+        //    {
+        //        attack += equippedItems[i].atk;
+        //        hp += equippedItems[i].def;
+        //    }
+        //}
+
+        hpBase = Mathf.RoundToInt(hp * 1.25f);
+        attackBase = Mathf.RoundToInt(attack * 1.2525f);
+
         attack = attackBase;
         hp = hpBase;
-        for (int i = 0; i < equippedItems.Length; i++)
-        {
-            if (equippedItems[i] != null)
-            {
-                attack += equippedItems[i].atk;
-                hp += equippedItems[i].def;
-            }
-        }
+    }
 
-        hp *= Mathf.RoundToInt(level *1.25f);
-        attack *= Mathf.RoundToInt(level *1.25f);
+    public void LevelUp()
+    {
+        CalcStats();
+        //xp is minused by xp max
+        xp -= xpMax;
+        //xp max is set to 125% of value
+        xpMax *= 1.25f;
+        //level has 1 added to it
+        level += 1;
+
+        levelUpButton.SetActive(false);
+        print("You leveled up!");
+
+        print("attack value is " + attack);
     }
 }
